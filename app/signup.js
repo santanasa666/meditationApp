@@ -12,6 +12,7 @@ import {
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router"; // Removed 'Color' as it's likely unused here
 import { COLORS, icons, SHADOWS } from "../constants";
+import VolumetricButton from "../assets/button";
 
 
 const SignUp = () => {
@@ -36,7 +37,7 @@ const SignUp = () => {
 
     return (
         <>
-            <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.gray1 }}>
                 <Stack.Screen
                     options={{
                         headerStyle: { backgroundColor: COLORS.lightWhite },
@@ -49,24 +50,28 @@ const SignUp = () => {
                 />
                 <View style={{padding: 20}} testID="signupContainer">
                     <View 
-                    style={{
-                        padding: 20,
-                        marginLeft: "auto",
-                        marginRight:"auto",
-                        backgroundColor:"#f0f0f0",
-                        borderRadius: 50,
-                        height: 90,
-                        ...SHADOWS.medium,
-                        shadowColor: COLORS.white,
-                    }}
-                    testID="ImageIcon"
-                    >
-                        <Image 
-                        source={icons.menu}
-                        style={{height:50, width:50}}
-                        />
-
-                    </View>
+                                    style={{
+                                        padding:20,
+                                        marginLeft: "auto",
+                                        marginRight:"auto",
+                                        
+                                        borderRadius: 50, 
+                                        height: 120,
+                                        ...SHADOWS.medium,
+                                        shadowColor: COLORS.white,
+                                    }}>
+                    
+                                        <Image 
+                                        source={icons.logoV}
+                                        style={{
+                                            width: 60,
+                                            height: 70,
+                                            marginBottom: 40,
+                                            padding:20,
+                                        }}
+                                        />
+                    
+                                    </View>
                     <View style={{marginTop: 30}} testID="formData">
                         <View style={{ marginBottom: 10 }} testID="userName">
                             <TextInput style={{
@@ -108,24 +113,8 @@ const SignUp = () => {
                             placeholder="Password"
                             />                            
                         </View>
-                        <TouchableOpacity
-                            style={{
-                                backgroundColor: COLORS.primary,
-                                padding: 15,
-                                borderRadius: 5,
-                                alignItems:"center",
-                                marginBottom: 10,
-                            }}
-                            onPress={handleRegister}
-                            testID="handleRegister"
-                        >
-                            <Text
-                            style={{
-                                color: "#fff",
-                                fontWeight: "bold"
-                            }}
-                            >Sign Up</Text>
-                        </TouchableOpacity>
+                        <VolumetricButton title="Sign Up" onPress={handleRegister} testID="handleRegister"/>
+                        
                         <View
                         style={{
                             flexDirection:"row",
@@ -137,7 +126,7 @@ const SignUp = () => {
                         >
                             <Text style={{ marginRight: 5 }}>Already have an account?</Text>
                             <TouchableOpacity onPress={() => {router.push("/login")}}>
-                                <Text style={{color: "blue"}}>Login</Text>
+                                <Text style={{color: COLORS.primary, fontWeight:500}}>Login</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

@@ -3,6 +3,8 @@ import { View, SafeAreaView, Image, Alert, Text, TextInput, TouchableOpacity } f
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS } from "../constants";
+import VolumetricButton from "../assets/button";
+
 
 const login = () =>{
     const [email, setEmail] = useState("");
@@ -58,28 +60,31 @@ const login = () =>{
                     padding:20,
                     marginLeft: "auto",
                     marginRight:"auto",
-                    backgroundColor:"#f0f0f0",
+                    
                     borderRadius: 50, 
-                    height: 90,
+                    height: 120,
                     ...SHADOWS.medium,
                     shadowColor: COLORS.white,
                 }}>
 
                     <Image 
-                    source={icons.menu}
+                    source={icons.logoV}
                     style={{
-                        width: 50,
-                        height: 50,
-                        marginBottom: 20,
+                        width: 60,
+                        height: 70,
+                        marginBottom: 40,
+                        padding:20,
                     }}
                     />
 
                 </View>
+                <View style={{marginBottom:10, marginTop:10}}><Text style={{textAlign:"center", color:COLORS.primary, fontWeight:600}}>Welcome Back!</Text></View>
 
                 {/* Form component*/}
                 <View
                 style={{marginTop: 20 }}>
-                    <View style={{marginBottom: 20}}>
+                    <View style={{marginBottom: 10}}>
+                        
                         <TextInput
                         style={{
                             borderWidth:1,
@@ -109,17 +114,22 @@ const login = () =>{
 
                         
                     </View>
-                    <TouchableOpacity
-                    style={{
-                        backgroundColor:COLORS.primary,
-                        padding: 15,
-                        borderRadius: 5,
-                        alignItems: "center",
-                    }}
-                    onPress={handleLogin}
-                    >
-                        <Text style={{color:"#fff", fontWeight:"bold"}}>Login</Text>
-                    </TouchableOpacity>
+
+                    <View
+                style={{
+                    flexDirection:"row",
+                    justifyContent:"center",
+                    alignItems:"center",
+                    marginBottom:50,
+                }}
+                >
+                    
+                    <TouchableOpacity><Text style={{color:COLORS.primary, fontWeight:400}}>Forgot Password?</Text></TouchableOpacity>
+
+                </View>
+
+                    <VolumetricButton title="Login" onPress={handleLogin}/>
+                    
                 </View>
 
                 {/* Additional options*/}
@@ -136,7 +146,7 @@ const login = () =>{
                         marginRight: 5
                     }}
                     >Don't have an account?</Text>
-                    <TouchableOpacity onPress={()=> router.push("/signup")}><Text>Sign Up</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={()=> router.push("/signup")}><Text style={{color:COLORS.primary, fontWeight:500}}>Sign Up</Text></TouchableOpacity>
 
                 </View>
             </View>
