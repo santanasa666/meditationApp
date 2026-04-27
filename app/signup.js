@@ -4,18 +4,21 @@ import {
     SafeAreaView,
     Image,
     Alert,
-    TouchableOpacity
-} from "react-native";
+    TouchableOpacity,
+    Text,        
+    TextInput    
+} from "react-native"; 
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Color, Stack, useRouter } from "expo-router";
+import { Stack, useRouter } from "expo-router"; // Removed 'Color' as it's likely unused here
 import { COLORS, icons, SHADOWS } from "../constants";
-import { TextInput } from "react-native-web";
+
 
 const SignUp = () => {
 
-    const [userName, SetUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    const [userName, setUserName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const router = useRouter();
 
     const handleRegister = async () => {
@@ -146,6 +149,3 @@ const SignUp = () => {
 
 export default SignUp;
 
-const styles = StyleSheet.create({
-    
-})
