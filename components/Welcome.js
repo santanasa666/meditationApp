@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
         },
         userName:{
             fontFamily: FONT.regular,
-            fontSize: SIZES.large,
-            color: COLORS.gray2,
+            fontSize: SIZES.medium,
+            color: COLORS.gray,
         },
 
         welcomeMessage:{

@@ -4,6 +4,8 @@ const COLORS = {
     secondary: "#444262",
     tertiary: "#FF7754",
 
+    lightMain:"#FFF6FF",
+
     backgroundColor:"#fafafa",
 
     text:"#1F0517",
@@ -22,9 +24,12 @@ const COLORS = {
     regular: "DMRegular",
     medium: "DMMedium",
     bold: "DMBold",
+    openRegular:"",
   };
   
   const SIZES = {
+    xxxSmall:2,
+    xxSmall:6,
     xSmall: 10,
     small: 12,
     medium: 16,

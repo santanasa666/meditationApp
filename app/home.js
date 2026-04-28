@@ -35,7 +35,7 @@ useEffect(() => {
 
     return (
         <>
-            <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+            <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.backgroundColor }}>
                 <ScreenHeaderBtn />
                 <ScrollView showsVerticalScrollIndicator={false} >
                     <View style={{ flex: 1, padding: SIZES.medium, }} >

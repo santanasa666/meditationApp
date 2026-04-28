@@ -12,8 +12,8 @@ const ScreenHeaderBtn = ({ detailPage, handleShare, iconName }) => {
     return (
         <>
             <View style={styles.btn}>
-                <TouchableOpacity style={styles.btnContainer} onPress={() => router.push("/home")}>
-                    <Image source={icons.logoH} style={styles.image} />
+                <TouchableOpacity style={styles.btnLogo} onPress={() => router.push("/home")}>
+                    <Image source={icons.logoH} style={styles.LogoImage} />
                 </TouchableOpacity>
 
                 {detailPage ?
@@ -25,7 +25,9 @@ const ScreenHeaderBtn = ({ detailPage, handleShare, iconName }) => {
                     :
                     <>
                         <TouchableOpacity style={styles.btnContainer} onPress={() => router.push("/settings")}>
-                            <Feather iconName="settings" style={styles.icon} />
+                            <Feather name="settings" style={styles.icon} size={20
+
+                            } color={COLORS.primary} />
                         </TouchableOpacity>
                     </>
                 }
@@ -40,17 +42,37 @@ const styles = StyleSheet.create({
         alignItems: 'center', 
         paddingHorizontal: 10, 
         width: '100vw', 
+        backgroundColor: COLORS.white,
+        borderBottomWidth:1,
+        borderBottomColor:COLORS.gray2,
+        paddingVertical:5,
       },
     image: {
         width: 30, 
         height: 30,
         resizeMode: 'contain',
       },
-    icon: {},
-    btnContainer: {
+      LogoImage: {
+        width: 70, 
+        height: "100%",
+        resizeMode: 'contain',
+      },
+      btnLogo: {
         width: 40,
         height: 40,
-        backgroundColor: COLORS.white,
+        borderRadius: SIZES.small / 1.25,
+        justifyContent: "center",
+        alignItems: "center",
+        marginHorizontal: 5,
+        marginLeft:20,
+      },
+    icon: {
+        margin:"auto",
+    },
+    btnContainer: {
+        width: 30,
+        height: 30,
+        backgroundColor: COLORS.lightMain,
         borderRadius: SIZES.small / 1.25,
         justifyContent: "center",
         alignItems: "center",
