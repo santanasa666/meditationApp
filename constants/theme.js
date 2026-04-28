@@ -7,6 +7,7 @@ const COLORS = {
     backgroundColor:"#fafafa",
 
     text:"#1F0517",
+    mainText:"#1F0517",
     hintText:"#797575",
   
     gray1:"#FBFBFB",

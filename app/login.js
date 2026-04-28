@@ -92,6 +92,7 @@ const login = () =>{
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Email"
+                        iconName="mail"
                         
                         
                         
@@ -104,6 +105,7 @@ const login = () =>{
                         onChangeText={setPassword}
                         placeholder="Password"
                         secureTextEntry={true}
+                        iconName="lock"
                         
                         />
 

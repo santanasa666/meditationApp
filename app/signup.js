@@ -79,6 +79,7 @@ const SignUp = () => {
                             value={userName}
                             onChangeText={setUserName}
                             placeholder="UserName"
+                            iconName="user"
                             />                            
                         </View>
                         <View style={{marginBottom: 0}}  testID="email">
@@ -86,6 +87,7 @@ const SignUp = () => {
                             value={email}
                             onChangeText={setEmail}
                             placeholder="Email"
+                            iconName="mail"
                             />                            
                         </View>
                         <View style={{marginBottom: 40}} testID="password">
@@ -94,6 +96,7 @@ const SignUp = () => {
                             onChangeText={setPassword}
                             secureTextEntry={true}
                             placeholder="Password"
+                            iconName="lock"
                             />                            
                         </View>
                         <VolumetricButton title="Sign Up" onPress={handleRegister} testID="handleRegister"/>

@@ -1,31 +1,39 @@
 import React, { useState } from 'react';
 import { StyleSheet, TextInput, View, Platform } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
 import { COLORS } from '../constants';
 
-const CustomInput = ({ placeholder, value, onChangeText, ...props }) => {
+const CustomInput = ({ iconName, placeholder, value, onChangeText, ...props }) => {
   const [isFocused, setIsFocused] = useState(false);
 
+  // Theme Colors
+  const activeColor = COLORS.primary; // Pink
+  const inactiveColor = COLORS.gray; // Gray
+  const borderColor = isFocused ? activeColor : COLORS.gray2;
+
   return (
-    <View 
-      style={[
-        styles.inputWrapper, 
-        isFocused ? styles.focusedBorder : styles.defaultBorder
-      ]}
-    >
+    <View style={[styles.inputWrapper, { borderColor: borderColor }]}>
+      {/* Feather Icon */}
+      <Feather 
+        name={iconName} 
+        size={20} 
+        color={isFocused ? activeColor : inactiveColor} 
+        style={styles.icon} 
+      />
+
       <TextInput
         style={[
           styles.input,
-          // This removes the stubborn black/blue ring on Web
+          // Eliminates the default browser focus ring
           Platform.OS === 'web' && { outlineStyle: 'none' }
         ]}
         placeholder={placeholder}
-        placeholderTextColor={COLORS.hintText}
+        placeholderTextColor={inactiveColor}
         value={value}
         onChangeText={onChangeText}
         onFocus={() => setIsFocused(true)}
         onBlur={() => setIsFocused(false)}
-        // Makes the blinking cursor pink to match!
-        selectionColor={COLORS.primary}
+        selectionColor={activeColor}
         {...props}
       />
     </View>
@@ -34,28 +42,22 @@ const CustomInput = ({ placeholder, value, onChangeText, ...props }) => {
 
 const styles = StyleSheet.create({
   inputWrapper: {
-    marginVertical: 5,
-    borderWidth: 1.5,
-    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginVertical: 10,
+    borderWidth: 2,
+    borderRadius: 10,
     backgroundColor: COLORS.white,
-    // We keep the transition so it looks smooth
-    transitionProperty: 'border-color',
-    transitionDuration: '0.2s',
+    paddingHorizontal: 15,
+    borderStyle: 'solid',
   },
-  defaultBorder: {
-    borderColor: COLORS.gray2,
-  },
-  focusedBorder: {
-    // We use !important-style logic by ensuring this color 
-    // is applied to the WRAPPER, not just the input
-    borderColor: COLORS.primary,
-    borderWidth:2, 
+  icon: {
+    marginRight: 12,
   },
   input: {
+    flex: 1,
     height: 50,
-    paddingHorizontal: 15,
-    fontSize: 16,
-    color: '#000',
+    color: COLORS.secondary,
     width: '100%',
     // Extra insurance for web browsers
     ...Platform.select({
