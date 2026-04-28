@@ -41,7 +41,7 @@ const SignUp = () => {
             <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.gray1 }}>
                 <Stack.Screen
                     options={{
-                        headerStyle: { backgroundColor: COLORS.lightWhite },
+                        headerStyle: { backgroundColor: COLORS.backgroundColor },
                         headerShadowVisible: false,
                         headerLeft: () => (
                             <></>
@@ -65,15 +65,16 @@ const SignUp = () => {
                                         <Image 
                                         source={icons.logoV}
                                         style={{
-                                            width: 60,
-                                            height: 70,
+                                            width: 70,
+                                            height: 80,
                                             marginBottom: 40,
                                             padding:20,
                                         }}
                                         />
                     
                                     </View>
-                    <View style={{marginTop: 30}} testID="formData">
+                                    <View style={{margin:0}}><Text style={{textAlign:"center", color:COLORS.primary, fontWeight:600}}>Create an account</Text></View>
+                    <View style={{marginTop: 15}} testID="formData">
                         <View style={{marginBottom: 0}} testID="userName">
                             <CustomInput 
                             value={userName}

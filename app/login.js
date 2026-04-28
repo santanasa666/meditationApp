@@ -72,8 +72,8 @@ const login = () =>{
                     <Image 
                     source={icons.logoV}
                     style={{
-                        width: 60,
-                        height: 70,
+                        width: 70,
+                        height: 80,
                         marginBottom: 40,
                         padding:20,
                     }}
