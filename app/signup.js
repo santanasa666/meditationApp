@@ -13,6 +13,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router"; // Removed 'Color' as it's likely unused here
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
+import CustomInput from "../components/dynamicInput";
 
 
 const SignUp = () => {
@@ -73,40 +74,22 @@ const SignUp = () => {
                     
                                     </View>
                     <View style={{marginTop: 30}} testID="formData">
-                        <View style={{ marginBottom: 10 }} testID="userName">
-                            <TextInput style={{
-                                borderColor:"ccc",
-                                borderWidth: 1,
-                                padding: 10,
-                                borderRadius: 5,
-                                marginBottom: 10,
-                            }}
+                        <View style={{marginBottom: 0}} testID="userName">
+                            <CustomInput 
                             value={userName}
                             onChangeText={setUserName}
                             placeholder="UserName"
                             />                            
                         </View>
-                        <View style={{ marginBottom: 10 }} testID="email">
-                            <TextInput style={{
-                                borderColor:"ccc",
-                                borderWidth: 1,
-                                padding: 10,
-                                borderRadius: 5,
-                                marginBottom: 10,
-                            }}
+                        <View style={{marginBottom: 0}}  testID="email">
+                            <CustomInput
                             value={email}
                             onChangeText={setEmail}
                             placeholder="Email"
                             />                            
                         </View>
-                        <View style={{ marginBottom: 10 }} testID="password">
-                            <TextInput style={{
-                                borderColor:"ccc",
-                                borderWidth: 1,
-                                padding: 10,
-                                borderRadius: 5,
-                                marginBottom: 10,
-                            }}
+                        <View style={{marginBottom: 40}} testID="password">
+                            <CustomInput
                             value={password}
                             onChangeText={setPassword}
                             secureTextEntry={true}

@@ -3,12 +3,17 @@ const COLORS = {
     primaryDark:"#B210BF",
     secondary: "#444262",
     tertiary: "#FF7754",
+
+    backgroundColor:"#fafafa",
+
+    text:"#1F0517",
+    hintText:"#797575",
   
     gray1:"#FBFBFB",
     gray: "#83829A",
-    gray2: "#C1C0C8",
+    gray2: "#D9D9D9",
   
-    white: "#F3F4F8",
+    white: "#FFFFFF",
     lightWhite: "#FAFAFC",
   };
   

@@ -4,6 +4,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
+import { globalStyles } from "../assets/styles/global";
+import CustomInput from "../components/dynamicInput";
 
 
 const login = () =>{
@@ -80,36 +82,29 @@ const login = () =>{
                 </View>
                 <View style={{marginBottom:10, marginTop:10}}><Text style={{textAlign:"center", color:COLORS.primary, fontWeight:600}}>Welcome Back!</Text></View>
 
-                {/* Form component*/}
+                
                 <View
                 style={{marginTop: 20 }}>
                     <View style={{marginBottom: 10}}>
                         
-                        <TextInput
-                        style={{
-                            borderWidth:1,
-                            borderColor: "#ccc",
-                            padding: 10,
-                            borderRadius: 5,
-                            marginBottom: 10,
-                        }}
+                        <CustomInput
+                        
                         value={email}
                         onChangeText={setEmail}
                         placeholder="Email"
                         
+                        
+                        
+                        
                         />
-                        <TextInput 
-                        style={{
-                            borderWidth:1,
-                            borderColor:"#ccc",
-                            padding: 10,
-                            borderRadius: 5,
-                            marginBottom: 10,
-                        }}
+                        <CustomInput 
+                        
                         value={password}
                         secureTextEntry={true}
                         onChangeText={setPassword}
                         placeholder="Password"
+                        secureTextEntry={true}
+                        
                         />
 
                         
