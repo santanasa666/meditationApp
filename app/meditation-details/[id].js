@@ -12,17 +12,17 @@ const MeditationDetails = () => {
     const params = useGlobalSearchParams();
     const id = params.id;
 
-    
+
     const { data, isLoading, error, refetch } = useFetch("search", {
         query: id,
     });
-    
-    
+
+
     const meditationItem = data?.[0]; // Assuming the search returns an array
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [refreshing, setRefreshing] = useState(false);
-    
+
     const onRefresh = useCallback(() => {
         setRefreshing(true);
         refetch();
@@ -44,7 +44,7 @@ const MeditationDetails = () => {
                     <View style={styles.pointsContainer}>
                         {(meditationItem?.instructions ?? ["N/A"]).map((item, index) => (
                             <View style={styles.pointWrapper} key={index}>
-                                <View style={styles.pointDot}/>
+                                <View style={styles.pointDot} />
                                 <Text style={styles.pointText}>{item}</Text>
                             </View>
                         ))}
@@ -65,16 +65,11 @@ const MeditationDetails = () => {
         }
     };
 
+    
+
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
-            <Stack.Screen
-                options={{
-                    headerShadowVisible: false,
-                    headerTitle: "",
-                    headerLeft: () => <ScreenHeaderBtn iconUrl={icons.left} dimension="60%" />,
-                    headerRight: () => <ScreenHeaderBtn iconUrl={icons.share} dimension="60%" handleShare={onShare} />,
-                }}
-            />
+            <ScreenHeaderBtn detailPage={true} />
 
             <ScrollView
                 showsVerticalScrollIndicator={false}
@@ -88,7 +83,7 @@ const MeditationDetails = () => {
                     <Text>No data available</Text>
                 ) : (
                     <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
-                        <MeditationTopDisplay 
+                        <MeditationTopDisplay
                             meditationImage={meditationItem.image}
                             meditationTitle={meditationItem.title}
                             duration={meditationItem.duration}

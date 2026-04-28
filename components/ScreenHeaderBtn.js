@@ -19,7 +19,7 @@ const ScreenHeaderBtn = ({ detailPage, handleShare, iconName }) => {
                 {detailPage ?
                     <>
                         <TouchableOpacity style={styles.btnContainer} onPress={handleShare}>
-                            <Feather iconName="share" />
+                            <Feather name="share-2" style={styles.icon} size={20} color={COLORS.primary} />
                         </TouchableOpacity>
                     </>
                     :
