@@ -1,12 +1,16 @@
 import { useState } from "react";
 import { useRouter } from "expo-router";
-import { COLORS, FONT, SHADOWS, SIZES } from "../constants";
+import { FONT, SHADOWS, SIZES } from "../constants";
 import { View, Text, TouchableOpacity, Image, FlatList, ActivityIndicator, StyleSheet } from "react-native";
-
+import { useTheme } from "../app/context/ThemeContext";
 import useFetch from "../hook/useFetch";
 
 const PopularMeditation = () => {
+    const { colors } = useTheme();
     const router = useRouter();
+
+    const themedStyles = styles(colors); 
+
     const { data, isLoading, error } = useFetch("search", {
         query: "React developer",
         num_pages: "1",
@@ -20,33 +24,33 @@ const PopularMeditation = () => {
 
     const renderMeditationCard = ({ item }) => (
         <TouchableOpacity
-            style={styles.container(selectedMeditation, item)}
+            style={themedStyles.container(selectedMeditation, item)}
             onPress={() => handleCardPress(item)}
         >
-            <TouchableOpacity style={styles.logoContainer(selectedMeditation, item)}>
+            <TouchableOpacity style={themedStyles.logoContainer(selectedMeditation, item)}>
                 <Image
                     source={{ uri: item?.image }}
                     resizeMode="cover"
-                    style={styles.logoImage}
+                    style={themedStyles.logoImage}
                 />
             </TouchableOpacity>
             
 
-            <View style={styles.infoContainer}>
+            <View style={themedStyles.infoContainer}>
                 <Text
-                    style={styles.meditationName(selectedMeditation, item)}
+                    style={themedStyles.meditationName(selectedMeditation, item)}
                     numberOfLines={1}
                 >
                     {item.title}
                 </Text>
-                <View style={styles.infoWrapper}>
-                    <Text style={styles.publisher(selectedMeditation, item)}>
+                <View style={themedStyles.infoWrapper}>
+                    <Text style={themedStyles.publisher(selectedMeditation, item)}>
                         {item?.shortDescription}
                     </Text>
                 </View>
             </View>
-            <View style={styles.tabsContainer}><Text style={styles.location}> {item.duration}</Text>
-                <Text style={styles.companyName} numberOfLines={1}>
+            <View style={themedStyles.tabsContainer}><Text style={themedStyles.location}> {item.duration}</Text>
+                <Text style={themedStyles.companyName} numberOfLines={1}>
                     {item.target}
                 </Text>
             </View>
@@ -60,10 +64,10 @@ const PopularMeditation = () => {
         <>
             <View style={StyleSheet.container} testID="popularContainer">
                 <View style={StyleSheet.header} testID="popularHeader">
-                    <Text style={styles.headerTitle}>Popular Meditations</Text>
-                    <View style={styles.cardsContainer}>
+                    <Text style={themedStyles.headerTitle}>Popular Meditations</Text>
+                    <View style={themedStyles.cardsContainer}>
                         {isLoading ? (
-                            <ActivityIndicator size="large" color={COLORS.primary} />
+                            <ActivityIndicator size="large" color={colors.primary} />
                         ) : error ? (
                             <Text>Something went wrong</Text>
                         ) : (
@@ -84,20 +88,20 @@ const PopularMeditation = () => {
 
 
 };
-const styles = StyleSheet.create({
+const styles = (themeColors) => StyleSheet.create({
 
     container: (selectedMeditation, item) => ({
         width: 270,
         padding: SIZES.xSmall,
         marginHorizontal: SIZES.small,
         marginTop: SIZES.small,
-        backgroundColor: selectedMeditation === item.id ? COLORS.primary : "#fff",
+        backgroundColor: selectedMeditation === item.id ? themeColors.primary : themeColors.backgroundColor,
         borderRadius: SIZES.xLarge,
         justifyContent: "space-between",
         ...SHADOWS.medium,
-        shadowColor: COLORS.white,
+        shadowColor: themeColors.white,
          borderWidth:1,
-        borderColor:COLORS.gray2,
+        borderColor:themeColors.gray2,
 
     }),
     logoImage: {
@@ -113,14 +117,14 @@ const styles = StyleSheet.create({
     headerTitle: {
         fontSize: SIZES.large,
         fontFamily: FONT.medium,
-        color: COLORS.primary,
+        color: themeColors.primary,
         marginBottom:0,
         marginTop:SIZES.large,
     },
     headerBtn: {
         fontSize: SIZES.medium,
         fontFamily: FONT.medium,
-        color: COLORS.gray,
+        color: themeColors.gray,
     },
 
     cardsContainer: {
@@ -137,7 +141,6 @@ const styles = StyleSheet.create({
 
     tabsContainer: {
         paddingVertical: SIZES.small / 2,
-        paddingHorizontal: SIZES.xSmall,
         marginTop: SIZES.medium,
         width: "100%",
         flexDirection:"row",
@@ -147,21 +150,21 @@ const styles = StyleSheet.create({
     companyName: {
         fontSize: SIZES.small,
         fontFamily: FONT.regular,
-        color: COLORS.text,
+        color: themeColors.text,
         marginTop: SIZES.small / 1.5,
         paddingVertical: SIZES.small / 2.5,
         paddingHorizontal: SIZES.small,
         borderRadius: SIZES.small,
         borderWidth: 1,
-        borderColor: COLORS.gray2,
+        borderColor: themeColors.gray2,
     },
     infoContainer: {
         marginTop: SIZES.large,
     },
     meditationName: (selectedMeditation, item) => ({
         fontSize: SIZES.medium,
-        fontFamily: FONT.medium,
-        color: selectedMeditation == item.id ? COLORS.white : COLORS.text,
+        fontFamily: FONT.regular,
+        color: selectedMeditation == item.id ? themeColors.white : themeColors.primary,
         fontWeight:"bold",
     }),
     infoWrapper: {
@@ -174,14 +177,14 @@ const styles = StyleSheet.create({
     publisher: (selectedMeditation, item) => ({
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.regular,
-        color: selectedMeditation === item.id ? COLORS.white : COLORS.primary,
+        color: selectedMeditation === item.id ? themeColors.white : themeColors.text,
 
     }),
 
     location: {
         fontSize: SIZES.medium - 2,
         fontFamily: FONT.regular,
-        color: COLORS.gray,
+        color: themeColors.gray,
         marginTop: SIZES.small,
     },
 

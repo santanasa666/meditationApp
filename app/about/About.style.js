@@ -1,64 +1,37 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES } from "../../constants";
+import { FONT, SIZES } from "../../constants";
 
-const styles= StyleSheet.create({
+
+
+const styles= (themeColors) => StyleSheet.create({
 
     container:{
-        marginVertical:SIZES.medium,
+        marginVertical:SIZES.small,
         justifyContent:"center",
-        alignItems:"center",
+        
     },
-    contextText:{
-        textAlign:"center",
+    headText:{
+        
+        marginBottom:SIZES.xxSmall,
+        fontWeight:"semibold",
+        fontFamily:FONT.bold,
+        fontSize:SIZES.medium,
+        color:themeColors.text,
     },
-    logoBox:{
-        width:"100%",
-        height:"250",
-        justifyContent:"center",
-        backgroundColor:COLORS.white,
-        borderRadius:SIZES.large,
-        shadowColor:COLORS.gray,
-    },
-    logoImage:{
-        width:"100%",
-        borderRadius:SIZES.large,
-        height:"100%",
-    },
-    meditationTitleBox:{
-        marginTop:SIZES.small,
-    },
-    meditationTitle:{
-        fontSize:SIZES.large,
-        color:COLORS.primary,
-        fontFamily: FONT.bold,
-        textAlign:"center",
-    },
-    meditationInfoBox: {
-        marginTop: SIZES.small / 2,
-        flexDirection: "row",
-        justifyContent:"center",
-        alignItems:"center",
-    },
-    meditationName: {
-        fontSize:SIZES.medium - 2,
-        color:COLORS.primary,
-        fontFamily: FONT.medium,
-    },
-    durationBox:{
-        flexDirection:"row",
-        justifyContent:"center",
-        alignItems:"center",
-    },
-    durationImage:{
+
+    contentBox:{
 
     },
-    durationName: {
-        fontSize:SIZES.medium - 2,
-        color: COLORS.gray,
-        fontFamily: FONT.regular,
-        marginLeft:2,
+
+    contentText:{
+        fontFamily:FONT.regular,
+        fontSize:SIZES.small,
+        color:themeColors.gray,
     },
+
+
+
 });
 
 export default styles;

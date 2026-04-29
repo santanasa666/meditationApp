@@ -4,7 +4,7 @@ const COLORS = {
   secondary: "#444262",
   tertiary: "#FF7754",
 
-  lightMain: "#FFF6FF",
+  lightMain: "#fde2fd",
 
   backgroundColor: "#fafafa", 
   darkBackground: "#000000",
@@ -13,34 +13,37 @@ const COLORS = {
   mainText: "#1F0517",
   hintText: "#797575",
 
-  gray1: "#FBFBFB",
+  gray1: "#ededed",
   gray: "#83829A",
   gray2: "#D9D9D9",
+  gray3:"#f3f3f3",
 
   white: "#FFFFFF",
   lightWhite: "#FAFAFC",
+
+  quote:"#000",
 };
 
 const DARK_COLORS = {
-  primary: "#DE25EC",
+  primary: "#f674ff",
   primaryDark: "#B210BF",
   secondary: "#444262",
   tertiary: "#FF7754",
 
-  lightMain: "#1F0517",
-
-  backgroundColor: "#000000", 
-
+  lightMain: "#340437",
+  backgroundColor: "#121212",
   text: "#FFFFFF",            
-  mainText: "#FAFAFC",
+  mainText: "#FBFBFB",
   hintText: "#D9D9D9",
 
   gray1: "#2B2B2B",
-  gray: "#83829A",
-  gray2: "#4A4A4A",
+  gray: "#c1c1d3",
+  gray2: "#2d2d2d",
 
   white: "#1F0517",
   lightWhite: "#212121",
+
+  quote:"#fffff",
 };
 const FONT = {
   regular: "DMRegular",

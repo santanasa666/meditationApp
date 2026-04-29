@@ -3,22 +3,24 @@ import { useCallback, useState } from "react";
 import { View, Text, SafeAreaView, ScrollView, ActivityIndicator, RefreshControl, Share, Alert, StyleSheet } from "react-native";
 import { MeditationTopDisplay, About, Footer, Tabs } from "../../components";
 import ScreenHeaderBtn from "../../components/ScreenHeaderBtn";
-import { COLORS, icons, SIZES } from "../../constants";
+import { icons, SIZES, FONT } from "../../constants"; 
 import useFetch from "../../hook/useFetch";
+import { useTheme } from "../context/ThemeContext";
 
 const tabs = ["About", "Instructions"];
 
 const MeditationDetails = () => {
     const params = useGlobalSearchParams();
     const id = params.id;
+    const { colors } = useTheme(); 
 
+    const themedStyles = styles(colors); 
 
     const { data, isLoading, error, refetch } = useFetch("search", {
         query: id,
     });
 
-
-    const meditationItem = data?.[0]; // Assuming the search returns an array
+    const meditationItem = data?.[0]; 
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [refreshing, setRefreshing] = useState(false);
@@ -40,12 +42,12 @@ const MeditationDetails = () => {
         } else if (activeTab === "Instructions") {
             return (
                 <View style={styles.specificsContainer}>
-                    <Text style={styles.specificsTitle}>Instructions:</Text>
-                    <View style={styles.pointsContainer}>
+                    <Text style={themedStyles.specificsTitle}>Instructions:</Text>
+                    <View style={themedStyles.pointsContainer}>
                         {(meditationItem?.instructions ?? ["N/A"]).map((item, index) => (
-                            <View style={styles.pointWrapper} key={index}>
-                                <View style={styles.pointDot} />
-                                <Text style={styles.pointText}>{item}</Text>
+                            <View style={themedStyles.pointWrapper} key={index}>
+                                <View style={[themedStyles.pointDot, { backgroundColor: colors.primary }]} />
+                                <Text style={[themedStyles.pointText, { color: colors.hintText }]}>{item}</Text>
                             </View>
                         ))}
                     </View>
@@ -65,10 +67,8 @@ const MeditationDetails = () => {
         }
     };
 
-    
-
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+        <SafeAreaView style={themedStyles.container}>
             <ScreenHeaderBtn detailPage={true} />
 
             <ScrollView
@@ -76,11 +76,11 @@ const MeditationDetails = () => {
                 refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} />}
             >
                 {isLoading ? (
-                    <ActivityIndicator size="large" color={COLORS.primary} />
+                    <ActivityIndicator size="large" color={colors.primary} />
                 ) : error ? (
-                    <Text>Something went wrong</Text>
+                    <Text style={{ color: colors.text }}>Something went wrong</Text>
                 ) : !meditationItem ? (
-                    <Text>No data available</Text>
+                    <Text style={{ color: colors.text }}>No data available</Text>
                 ) : (
                     <View style={{ padding: SIZES.medium, paddingBottom: 100 }}>
                         <MeditationTopDisplay
@@ -94,7 +94,6 @@ const MeditationDetails = () => {
                             activeTab={activeTab}
                             setActiveTab={setActiveTab}
                         />
-                        {/* Fixed: Added parentheses to call the function */}
                         {displayTabContent()}
                     </View>
                 )}
@@ -105,34 +104,41 @@ const MeditationDetails = () => {
     );
 };
 
-// Fixed: Moved styles outside the component so they are defined properly.
-const styles = StyleSheet.create({
+const styles = (themeColors) => StyleSheet.create({
+    container:{
+        flex: 1, 
+        backgroundColor: themeColors.backgroundColor, 
+    },
+    
     specificsContainer: {
-        padding: SIZES.medium,
+        
+        
+        marginVertical:SIZES.small,
+        justifyContent:"center",
     },
     specificsTitle: {
-        fontSize: SIZES.large,
-        fontWeight: "bold",
-        marginBottom: SIZES.small,
+        marginVertical:SIZES.xxSmall,
+        fontWeight:"semibold",
+        fontFamily:FONT.bold,
+        fontSize:SIZES.medium,
+        color:themeColors.text,
     },
     pointsContainer: {
-        marginTop: SIZES.small,
+        marginTop: SIZES.xSmall,
     },
     pointWrapper: {
         flexDirection: "row",
         alignItems: "center",
-        marginBottom: SIZES.small / 2,
+        marginBottom: SIZES.xSmall / 2,
     },
     pointDot: {
         width: 6,
         height: 6,
         borderRadius: 3,
-        backgroundColor: COLORS.primary,
         marginRight: SIZES.small,
     },
     pointText: {
-        fontSize: SIZES.medium,
-        color: COLORS.gray,
+        fontSize: SIZES.small,
     },
 });
 

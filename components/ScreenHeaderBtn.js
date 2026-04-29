@@ -1,53 +1,60 @@
 import { Image, TouchableOpacity, StyleSheet, View } from "react-native"; 
-import { COLORS, SIZES } from "../constants";
+import { SIZES } from "../constants"; // Removed static COLORS
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from "expo-router";
 import icons from "../constants/icons";
 import { useTheme } from "../app/context/ThemeContext";
 
 const ScreenHeaderBtn = ({ detailPage, handleShare }) => {
-    const router = useRouter();
-    const { colors } = useTheme(),
+   const { colors } = useTheme();
+   
+   const router = useRouter();
+    
+
+    const themedStyles = styles(colors);
 
     return (
-        <View style={styles.btn}>
+        <View style={themedStyles.btn}>
             <TouchableOpacity 
-                style={styles.btnLogo} 
+                style={themedStyles.btnLogo} 
                 onPress={() => router.push("/home")}
             >
-                <Image source={icons.logoH} style={styles.LogoImage} />
+                <Image source={icons.logoH} style={themedStyles.LogoImage} />
             </TouchableOpacity>
 
             {detailPage ? (
-                <TouchableOpacity style={styles.btnContainer} onPress={handleShare}>
-                    <Feather name="share-2" size={20} color={COLORS.primary} />
+                <TouchableOpacity 
+                    style={[themedStyles.btnContainer, { backgroundColor: colors.lightMain }]} 
+                    onPress={handleShare}
+                >
+                    <Feather name="share-2" size={20} color={colors.primary} />
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity 
-                    style={styles.btnContainer} 
+                    style={[themedStyles.btnContainer, { backgroundColor: colors.lightMain }]} 
                     onPress={() => {
-                        console.log("Navigating to settings..."); // Debug log
-                        router.push("/settings/Settings");
+                        console.log("Navigating to settings..."); 
+                        router.push("/settings/SettingsMenu");
                     }}
                 >
-                    <Feather name="settings" size={20} color={COLORS.primary} />
+                    <Feather name="settings" size={20} color={colors.primary} />
                 </TouchableOpacity>
             )}
         </View>
     );
 };
 
-const styles = StyleSheet.create({
+const styles = (themeColors) => StyleSheet.create({
     btn: {
         flexDirection: 'row', 
         justifyContent: 'space-between',
         alignItems: 'center', 
         paddingHorizontal: 10, 
         width: '100%', 
-        backgroundColor: COLORS.white,
         borderBottomWidth: 1,
-        borderBottomColor: COLORS.gray2,
         paddingVertical: 5,
+        backgroundColor: themeColors.backgroundColor,
+        borderBottomColor: themeColors.gray2,
     },
     LogoImage: {
         width: 70, 
@@ -64,7 +71,6 @@ const styles = StyleSheet.create({
     btnContainer: {
         width: 40,
         height: 40,
-        backgroundColor: COLORS.lightMain,
         borderRadius: SIZES.small / 1.25,
         justifyContent: "center",
         alignItems: "center",

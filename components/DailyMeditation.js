@@ -1,12 +1,16 @@
 import React from "react";
 import { useRouter } from "expo-router";
 import { View, Text, TouchableOpacity, Image, StyleSheet, ActivityIndicator, } from "react-native";
-import { COLORS, SIZES, FONT, SHADOWS } from "../constants";
+import { SIZES, FONT, SHADOWS } from "../constants";
 import useFetch from "../hook/useFetch";
+import { useTheme } from "../app/context/ThemeContext";
 
 const DailyMeditation = () => {
 
+    const { colors } = useTheme();
     const router = useRouter();
+
+    const themedStyles = styles(colors); 
     
     const { isLoading, error, bestMeditations } = useFetch("search", {
         query:"meditation",
@@ -20,47 +24,50 @@ const DailyMeditation = () => {
     const data = bestMeditations;
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.headerTitle}>Daily Meditation</Text>
+        <View style={themedStyles.container}>
+            <View style={themedStyles.header}>
+                <Text style={themedStyles.headerTitle}>Daily Meditation</Text>
             </View>
 
-            <View style={styles.cardsContainer}>
+            <View style={themedStyles.container}>
                 {isLoading ? (
-                    <ActivityIndicator size="large" color={COLORS.primary} />
+                    <ActivityIndicator size="large" color={colors.primary} />
                 ) : error ? ( 
-                    <Text>Something went wrong</Text>
+                    <Text style={themedStyles.errorText}>Something went wrong</Text>
 
                 ) : (
                     data?.map((meditation) => (
                         <TouchableOpacity
                         key={`meditation-${meditation.id}`}
-                        style={styles.cardsContainer}
+                        style={themedStyles.cardsContainer}
                         onPress={() => handleNavigate(meditation.id)}
                         >
-                            <View style={styles.logoContainer}>
+                            <View style={themedStyles.logoContainer}>
                                 <Image 
                                 source={{uri: meditation.image}}
                                 resizeMode="cover"
-                                style={styles.logoImage}
+                                style={themedStyles.logoImage}
                                 />
                             </View>
-                            <View style={styles.textContainer}>
+                            <View style={themedStyles.textContainer}>
                                 <Text 
-                                style={styles.meditationName}
+                                style={themedStyles.meditationName}
                                 numberOfLines={1}
                                 >{meditation.title}
                                 </Text>
-                                <Text
-                                style={styles.meditationDetail}
-                                >
-                                    {meditation.target}
-                                </Text>
-                                <Text
-                                style={styles.meditationDetail}
+                                <View style={themedStyles.tabsContainer}>
+                                    <Text
+                                style={themedStyles.meditationDetail}
                                 >
                                     {meditation.duration}
                                 </Text>
+                                <Text
+                                style={themedStyles.meditationType}
+                                >
+                                    {meditation.target}
+                                </Text>
+                                
+                                </View>
                             </View>
                         </TouchableOpacity>
                     ))
@@ -71,44 +78,41 @@ const DailyMeditation = () => {
     );
 };
 
-
-
-
-export default DailyMeditation;
-
-const styles = StyleSheet.create({
+const styles = (themeColors) => StyleSheet.create({
     container:{
         flex:1,
         marginTop:SIZES.xLarge,
+        marginBottom:SIZES.small,
     },
     header:{
         flexDirection:"row",
         justifyContent:"space-between",
         alignItems:"center",
         marginTop:SIZES.small,
+        marginBottom:SIZES.small,
     },
     headerTitle:{
         fontSize:SIZES.large,
         fontFamily:FONT.medium,
-        color:COLORS.primary,
+        color:themeColors.primary,
     },
-    cardsContainer:{
-        marginTop: SIZES.medium,
-        gap: SIZES.small,
-    },
+    
     cardsContainer:{
         flex:1,
         justifyContent: "space-between",
         padding:SIZES.medium,
-        borderRadius:SIZES.small,
-        backgroundColor: COLORS.white,
-        ...SHADOWS.medium,
-        shadowColor:COLORS.white,
+        borderRadius:SIZES.xLarge,
+        backgroundColor: themeColors.backgroundColor,
+        
+        
+        marginVertical:SIZES.small,
+        borderWidth:1.5,
+        borderColor:themeColors.gray2 ,
     },
     logoContainer: {
         width:"100%",
         height:150,
-        backgroundColor: COLORS.white,
+        backgroundColor: themeColors.white,
         justifyContent:"center",
         borderRadius: SIZES.medium,
         alignItems: "center",
@@ -120,13 +124,50 @@ const styles = StyleSheet.create({
         borderRadius: SIZES.medium,
     },
     textContainer:{
-        flex:1,
-        marginHorizontal:SIZES.medium,
+
+        
         marginTop:SIZES.medium,
+        
     },
     meditationName: {
         fontSize: SIZES.medium,
         fontFamily:"DMBOLD",
-        color: COLORS.primary,
+        color: themeColors.primary,
     },
+    tabsContainer: {
+        
+        paddingVertical: SIZES.small / 2,
+        marginTop: SIZES.xxxSmall,
+        width: "100%",
+        flexDirection:"row",
+        justifyContent:"space-between",
+    },
+    meditationDetail:{
+        fontSize: SIZES.medium - 2,
+        fontFamily: FONT.regular,
+        color: themeColors.gray,
+        marginTop: SIZES.small,
+        
+        
+    },
+    meditationType:{
+        fontSize: SIZES.small,
+        fontFamily: FONT.regular,
+        color: themeColors.text,
+        marginTop: SIZES.small / 1.5,
+        paddingVertical: SIZES.small / 2.5,
+        paddingHorizontal: SIZES.small,
+        borderRadius: SIZES.small,
+        borderWidth: 1,
+        borderColor: themeColors.gray2,
+    },
+
+    errorText:{
+        color: themeColors.error,
+    },
+    
 });
+
+
+export default DailyMeditation;
+

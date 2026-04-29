@@ -32,12 +32,12 @@ const Home = () => {
     }, []);
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: colors.backgroundColor }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: colors.lightWhite }}>
             <ScreenHeaderBtn />
             <ScrollView showsVerticalScrollIndicator={false}>
                 <View style={{ flex: 1, padding: SIZES.medium }}>
                     <Welcome userDetails={userDetails} isDarkMode={isDarkMode} />
-                    <DailyQuote/>   
+                    <DailyQuote isDarkMode={isDarkMode}/>   
                     <PopularMeditation isDarkMode={isDarkMode} />
                     <DailyMeditation isDarkMode={isDarkMode}/>
                 </View>

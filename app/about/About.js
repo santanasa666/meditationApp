@@ -1,13 +1,19 @@
 import { View, Text } from "react-native";
 
 import styles from "./About.style";
+import { useTheme } from "../context/ThemeContext";
 
 const About = ({ info, title }) => {
+
+    const { colors } = useTheme(); 
+
+    const themedStyles = styles(colors);
+
     return (
-        <View style={styles.container}>
-            <Text style={styles.headText}>About {title}:</Text>
-            <View style={styles.contentBox}>
-                <View style={styles.contentText}>{info}</View>
+        <View style={themedStyles.container}>
+            <Text style={themedStyles.headText}>About {title}:</Text>
+            <View style={themedStyles.contentBox}>
+                <View style={themedStyles.contentText}>{info}</View>
             </View>
         </View>
     );

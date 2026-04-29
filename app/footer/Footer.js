@@ -4,13 +4,19 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import styles from "./Footer.style";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { COLORS } from "../../constants";
+import { useTheme } from "../context/ThemeContext";
 
 // Fixed: Destructured 'data' from props
 const Footer = ({ data }) => {
+    
+    const { colors } = useTheme(); 
+
+    const themedStyles = styles(colors);  
+
     const [isFavorite, setIsFavorite] = useState(false);
 
-    // Check if this specific item is in favorites on mount
+    
+    
     const checkIfFavorite = async () => {
         try {
             const favorites = await AsyncStorage.getItem("favorites");
@@ -53,17 +59,17 @@ const Footer = ({ data }) => {
 
     return (
         // Fixed: Changed 'style.container' to 'styles.container'
-        <View style={styles.container}>
-            <TouchableOpacity style={styles.likeBtn} onPress={handleFavoriteToggle}>
+        <View style={themedStyles.container}>
+            <TouchableOpacity style={themedStyles.likeBtn} onPress={handleFavoriteToggle}>
                 <FontAwesome 
                     name={isFavorite ? "heart" : "heart-o"} 
                     size={24} // Increased size slightly for better visibility
-                    color={isFavorite ? COLORS.primary : COLORS.gray2}
+                    color={isFavorite ? colors.primary : colors.gray2}
                 />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.applyBtn} onPress={handleFavoriteToggle}>
-                <Text style={styles.applyBtnText}>
+            <TouchableOpacity style={themedStyles.applyBtn} onPress={handleFavoriteToggle}>
+                <Text style={themedStyles.applyBtnText}>
                     {isFavorite ? "Remove from favorites" : "Add to favorites"}
                 </Text>
             </TouchableOpacity>

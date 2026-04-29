@@ -1,26 +1,33 @@
 import { StyleSheet } from "react-native";
 
-import { COLORS, FONT, SIZES, SHADOWS } from "../../constants";
+import { FONT, SIZES, SHADOWS } from "../../constants";
 
-const styles = StyleSheet.create({
+const styles = (themeColors) => StyleSheet.create({
 
     container:{
-        marginTop:SIZES.small,
+        marginTop:SIZES.xxxSmall,
         marginBottom:SIZES.small / 2 ,
+        alignItems:"center",
+        borderBottomWidth:1,
+        borderBottomColor:themeColors.gray2,
     },
     btn: (name, activeTab) => ({
-        paddingVertical: SIZES.medium,
+
         paddingHorizontal: SIZES.xLarge,
-        backgroundColor: name === activeTab ? COLORS.primary : COLORS.text,
+        
         borderRadius: SIZES.medium,
         marginLeft:2,
         ...SHADOWS.medium,
-        shadowColor: COLORS.white,
+        shadowColor: themeColors.white,
     }),
     btnText: (name, activeTab) => ({
-        fontFamily: "DMMedium",
-        fontSize: SIZES.small,
-        color: name === activeTab ? COLORS.primary : COLORS.gray,
+        fontFamily:name === activeTab ? FONT.bold : FONT.regular,
+        
+        fontSize: SIZES.medium,
+        color: name === activeTab ? themeColors.primary : themeColors.gray,
+        paddingBottom:SIZES.xSmall,
+        borderBottomWidth: name === activeTab ? 5 : 0,
+        borderBottomColor:themeColors.primary,
     }),
 
 
