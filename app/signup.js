@@ -30,6 +30,21 @@ const SignUp = () => {
         }
 
         const userDetails = { userName, email, password, token:"sample-token"};
+
+        // try/catch block for safer local storage handling
+        try {
+
+            await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
+            console.log("User logged in:", userDetails);
+            router.push("/Login");
+
+        } catch (error) {
+
+            console.error("Error saving user details:", error);
+            Alert.alert("Error", "Failed to save account details. Please try again");
+
+        } ;
+
         await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
         console.log("User logged in:", userDetails);
 
