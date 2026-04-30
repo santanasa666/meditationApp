@@ -35,7 +35,7 @@ export default function RootLayout() {
         checkLoginState();
     }, []);
     
-    // Show loading spinner while checking login state or loading fonts
+    
     if (isLoading || !fontsLoaded) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

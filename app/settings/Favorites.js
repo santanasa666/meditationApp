@@ -1,12 +1,17 @@
 import React, {useState, useEffect, useCallback} from "react";
 import { SafeAreaView, ScrollView, View, Text, ActivityIndicator, StyleSheet, RefreshControl, TouchableOpacity, Alert } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { COLORS, FONT, SIZES } from "../../constants";
+import { FONT, SIZES } from "../../constants";
 import DailyMeditation from "../../components/DailyMeditation";
 import { useFocusEffect } from "expo-router";
 import ScreenHeaderBtn from "../../components/ScreenHeaderBtn";
+import { useTheme } from "../context/ThemeContext";
 
 const Favorites = () => {
+
+    const { colors } = useTheme();
+
+    const themedStyles = styles(colors);
 
     const [favorites, setFavorites] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -34,32 +39,40 @@ const Favorites = () => {
 
     //Clear all favorites handler
     const clearFavorites = () => {
-        Alert.alert(
-            "Clear Favorites",
-            "Are you sure you want to remove all saved items?",
+    Alert.alert(
+        "Clear Favorites",
+        "Are you sure you want to remove all saved items?",
         [
-            {text: "Cancel", style:"cancel"},
+            { text: "Cancel", style: "cancel" },
             {
-                text:"Clear All",
-                style:"destructive",
+                text: "Clear All",
+                style: "destructive",
                 onPress: async () => {
-                    await AsyncStorage.removeItem("favorites");
-                    setFavorites([]);
+                    try {
+                       
+                        await AsyncStorage.setItem("favorites", JSON.stringify([]));
+                        
+                        
+                        setFavorites([]); 
+                    } catch (error) {
+                        console.error("Failed to clear favorites:", error);
+                        Alert.alert("Error", "Could not clear favorites. Please try again.");
+                    }
                 }
             },
         ]
-        );
-    };
+    );
+};
 
 
     useFocusEffect(
         React.useCallback(() => {
-            loadFavories();
+            loadFavorites();
         }, [])
     );
 
     return(
-       <SafeAreaView style={{flex:1, backgroundColor: COLORS.primaryDark}}>
+       <SafeAreaView style={{flex:1, backgroundColor: colors.gray3}}>
         <ScreenHeaderBtn />
         <ScrollView
         showsVerticalScrollIndicator={false}
@@ -67,21 +80,21 @@ const Favorites = () => {
             <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-            tintColor={COLORS.primary} // for IOS
-            colors={[COLORS.primary]} //for Android
+            tintColor={colors.primary} // for IOS
+            colors={[colors.primary]} //for Android
             />
         }
         >
-            <View style={styles.container}>
+            <View style={themedStyles.container}>
                 {isLoading ? (
-                    <ActivityIndicator size={"large"} color={COLORS.primary} />
+                    <ActivityIndicator size={"large"} color={colors.primary} />
                 ) : favorites.length === 0 ? (
-                    <Text style={styles.headerTitle}>No favorite items found.</Text>
+                    <Text style={themedStyles.headerTitle}>No favorite items found.</Text>
                 ) : (
-                    <><View style={styles.headerRow}>
-                    <Text style={{textAlign:"center", color:COLORS.gray2, fontWeight:"bold" }}>My Favorite Exercises</Text>
+                    <><View style={themedStyles.headerRow}>
+                    <Text style={themedStyles.favoriteTitle}>My Favorite Exercises</Text>
                     <TouchableOpacity onPress={clearFavorites}>
-                        <Text style={styles.clearBtnText}>Clear All</Text>
+                        <Text style={themedStyles.clearBtnText}>Clear All</Text>
                     </TouchableOpacity>
                     </View>
                     <DailyMeditation meditations={favorites} />
@@ -90,44 +103,58 @@ const Favorites = () => {
             </View>
         </ScrollView>
        </SafeAreaView>
-    )
+    );
 
-    const styles = StyleSheet.create({
+    
+
+};
+
+const styles = (themeColors) => StyleSheet.create({
   container: {
     marginTop: SIZES.xLarge,
     padding: SIZES.medium,
+    alignContent:"center",
+    alignItems:"center",
   },
   headerTitle: {
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
-    color: COLORS.primary,
+    color: themeColors.text,
     textAlign: "center",
     marginTop: 20,
   },
-  headerRow:{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    alignItems:"center",
-    marginBottom: SIZES.medium,
+  favoriteTitle:{
+    color:themeColors.gray, 
+    fontWeight:"bold" 
   },
+  
   subHeader: {
-    color:COLORS.gray2,
+    color:themeColors.text,
     fontWeight:"bold",
     fontFamily: FONT.medium,
   },
-  clearBtnText: {
-    color: COLORS.tertiary || "#FF7754",
-    fontWeight:"600",
-  },
+ headerRow: {
+    width: "100%",
+    flexDirection:"row",
+    justifyContent:"space-between",
+    alignItems: "center",
+    marginBottom: SIZES.medium,
+    paddingHorizontal: 5, 
+    borderBottomWidth:2,
+    borderBottomColor:themeColors.gray1
+},
+clearBtnText: {
+    color: themeColors.error || "#f91818",
+    fontWeight: "600",
+    padding: 10, 
+},
   headerTitle:{
     fontSize: SIZES.large,
     fontFamily: FONT.medium,
-    color: COLORS.primary,
+    color: themeColors.gray,
     textAlign:"center",
-    marginTop:20,
+    marginTop:150,
   },
 });
-
-}
 
 export default Favorites;

@@ -4,11 +4,11 @@ import { useTheme } from "../app/context/ThemeContext";
 
 
 const DailyQuote = () => {
-    const { colors } = useTheme(); // This provides the 'colors' object
+    const { colors } = useTheme();
     const [quote, setQuote] = useState('');
     const [loading, setLoading] = useState(false);
 
-    // 1. Generate the themed styles by calling the function
+    
     const themedStyles = styles(colors); 
 
     const fetchQuote = async () => {
@@ -31,7 +31,7 @@ const DailyQuote = () => {
     }, []);
 
     return (
-        // 2. Use 'themedStyles' instead of 'styles'
+        
         <View style={themedStyles.container}>
             {loading ? (
                 <ActivityIndicator size="small" color={colors.primary} />
@@ -44,12 +44,11 @@ const DailyQuote = () => {
     );
 };
 
-// 3. Fix the parameter and variable naming consistency
+
 const styles = (themeColors) => StyleSheet.create({
     container: {
         justifyContent: 'center',
         borderWidth: 1,
-        // Removed quotes: 'color.gray' would be a string, themeColors.gray is a variable
         borderColor: themeColors.gray2 || '#ccc', 
         borderTopRightRadius: 10,
         borderBottomLeftRadius: 10,
@@ -63,7 +62,6 @@ const styles = (themeColors) => StyleSheet.create({
         fontSize: 16,
         fontStyle: 'italic',
         textAlign: 'center',
-        // Use the parameter name 'themeColors'
         color: themeColors.text || themeColors.quote, 
     },
 });

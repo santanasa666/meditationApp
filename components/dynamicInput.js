@@ -6,14 +6,14 @@ import { COLORS } from '../constants';
 const CustomInput = ({ iconName, placeholder, value, onChangeText, ...props }) => {
   const [isFocused, setIsFocused] = useState(false);
 
-  // Theme Colors
+  
   const activeColor = COLORS.primary; // Pink
   const inactiveColor = COLORS.gray; // Gray
   const borderColor = isFocused ? activeColor : COLORS.gray2;
 
   return (
     <View style={[styles.inputWrapper, { borderColor: borderColor }]}>
-      {/* Feather Icon */}
+      
       <Feather 
         name={iconName} 
         size={20} 
@@ -24,7 +24,7 @@ const CustomInput = ({ iconName, placeholder, value, onChangeText, ...props }) =
       <TextInput
         style={[
           styles.input,
-          // Eliminates the default browser focus ring
+         
           Platform.OS === 'web' && { outlineStyle: 'none' }
         ]}
         placeholder={placeholder}

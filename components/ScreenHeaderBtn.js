@@ -1,5 +1,5 @@
 import { Image, TouchableOpacity, StyleSheet, View } from "react-native"; 
-import { SIZES } from "../constants"; // Removed static COLORS
+import { SIZES } from "../constants"; 
 import Feather from '@expo/vector-icons/Feather';
 import { useRouter } from "expo-router";
 import icons from "../constants/icons";

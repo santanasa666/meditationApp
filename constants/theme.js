@@ -5,6 +5,7 @@ const COLORS = {
   tertiary: "#FF7754",
 
   lightMain: "#fde2fd",
+  
 
   backgroundColor: "#fafafa", 
   darkBackground: "#000000",
@@ -20,8 +21,12 @@ const COLORS = {
 
   white: "#FFFFFF",
   lightWhite: "#FAFAFC",
+  lightBG:"#ffffff",
 
   quote:"#000",
+  error:"#f91818",
+  errorIcoBg:"#ffc5c5",
+  errorBg:"#ffeaea",
 };
 
 const DARK_COLORS = {
@@ -37,13 +42,18 @@ const DARK_COLORS = {
   hintText: "#D9D9D9",
 
   gray1: "#2B2B2B",
-  gray: "#c1c1d3",
+  gray: "#161617",
   gray2: "#2d2d2d",
+  gray3:"#1c1c1c",
 
   white: "#1F0517",
   lightWhite: "#212121",
+  lightBG:"#000000",
 
   quote:"#fffff",
+  error:"#9e0c0c",
+  errorIcoBg:"#4a0404",
+  errorBg:"#290202",
 };
 const FONT = {
   regular: "DMRegular",
@@ -58,6 +68,7 @@ const SIZES = {
   xSmall: 10,
   small: 12,
   medium: 16,
+  xMedium:18,
   large: 20,
   xLarge: 24,
   xxLarge: 32,

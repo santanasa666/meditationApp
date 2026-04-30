@@ -10,7 +10,7 @@ import {
 } from "react-native"; 
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Stack, useRouter } from "expo-router"; // Removed 'Color' as it's likely unused here
+import { Stack, useRouter } from "expo-router"; 
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
 import CustomInput from "../components/dynamicInput";
@@ -31,7 +31,7 @@ const SignUp = () => {
 
         const userDetails = { userName, email, password, token:"sample-token"};
 
-        // try/catch block for safer local storage handling
+        
         try {
 
             await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
