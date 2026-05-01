@@ -4,6 +4,7 @@ import { useFonts } from "expo-font";
 import { ActivityIndicator, View } from "react-native";
 import { getUserDetails } from "./utils/localStorage";
 import { ThemeProvider } from "./context/ThemeContext";
+import Toast from "react-native-toast-message";
 
 export const unstable_settings = {
     initialRouteName: "login",
@@ -55,6 +56,7 @@ export default function RootLayout() {
                 <Stack.Screen name="home" />
                 
             </Stack>
+            <Toast />
         </ThemeProvider>
     );
 }

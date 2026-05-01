@@ -8,8 +8,9 @@ import {
     Text,
     TextInput
 } from "react-native";
+import Toast from "react-native-toast-message";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
+
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
@@ -28,7 +29,7 @@ const SignUp = () => {
 
         setErrors({});
         let validationErrors = {};
-        
+
         // Check for empty fields
         if (!userName.trim()) validationErrors.userName = "Username is required";
         if (!email.trim()) validationErrors.email = "Email is required";
@@ -52,15 +53,15 @@ const SignUp = () => {
         const userDetails = { userName, email, password, token: "sample-token" };
 
         try {
-            // Saving user details
             await saveUserDetails(userDetails);
-            console.log("User registered successfully:", userDetails);
-
-            // Navigate to login
+            Toast.show({
+                type: 'success',
+                text1: 'Account Created',
+                text2: 'Welcome to the app! Please login.'
+            });
             router.push("/login");
         } catch (error) {
-            console.error("Error saving user details:", error);
-            Alert.alert("Error", "Failed to save account details. Please try again");
+            Toast.show({ type: 'error', text1: 'Error', text2: 'Failed to save account.' });
         }
     };
 
@@ -104,7 +105,7 @@ const SignUp = () => {
                             placeholder="UserName"
                             iconName="user"
                         />
-                        {errors.userName && <Text style={{ color:COLORS.error, fontSize: 12 }}>{errors.userName}</Text>}
+                        {errors.userName && <Text style={{ color: COLORS.error, fontSize: 12 }}>{errors.userName}</Text>}
                     </View>
                     <View style={{ marginBottom: 0 }} testID="email">
                         <CustomInput
@@ -113,7 +114,7 @@ const SignUp = () => {
                             placeholder="Email"
                             iconName="mail"
                         />
-                        {errors.email && <Text style={{ color:COLORS.error , fontSize: 12 }}>{errors.email}</Text>}
+                        {errors.email && <Text style={{ color: COLORS.error, fontSize: 12 }}>{errors.email}</Text>}
                     </View>
                     <View style={{ marginBottom: 40 }} testID="password">
                         <CustomInput

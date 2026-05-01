@@ -4,11 +4,22 @@ import { useTheme } from '../context/ThemeContext';
 import { SIZES } from '../../constants';
 import ScreenHeaderBtn from '../../components/ScreenHeaderBtn';
 import ThemeChange from './ThemeChange';
+import Toast from 'react-native-toast-message';
 
 
 const Settings = () => {
   const { isDarkMode, toggleTheme, colors } = useTheme();
   const themedStyles = styles(colors);
+
+  const handleToggle = () => {
+    toggleTheme();
+    Toast.show({
+      type: 'info',
+      text1: 'Theme Changed',
+      text2: `Switched to ${!isDarkMode ? 'Dark' : 'Light'} mode`,
+      position: 'bottom'
+    });
+  };
   return (
     <SafeAreaView style={[themedStyles.container, { backgroundColor: colors.backgroundColor }]}>
       
@@ -23,7 +34,7 @@ const Settings = () => {
           trackColor={{ false: '#767577', true: '#DE25EC' }} 
           thumbColor={isDarkMode ? '#ffffff' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleTheme}
+          onValueChange={handleToggle}
           value={isDarkMode}
           activeThumbColor="#ffccfa"
         />

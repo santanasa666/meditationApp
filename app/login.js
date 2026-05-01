@@ -5,6 +5,7 @@ import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
 import CustomInput from "../components/dynamicInput";
+import Toast from "react-native-toast-message";
 
 const login = () => {
     const [email, setEmail] = useState("");
@@ -16,7 +17,7 @@ const login = () => {
         // Clear previous errors
         setErrors({});
         let validationErrors = {};
-        
+
         // Check for empty fields
         if (!email.trim()) validationErrors.email = "Email is required";
         if (!password.trim()) validationErrors.password = "Password is required";
@@ -32,21 +33,20 @@ const login = () => {
         console.log('userDetails', userDetails);
 
         try {
-            
+
             const parsedDetails = await getUserDetails();
-            
             if (parsedDetails) {
                 if (userDetails.email === parsedDetails.email && userDetails.password === parsedDetails.password) {
+                    Toast.show({ type: 'success', text1: 'Success', text2: 'Logged in successfully! 👋' });
                     router.push("/home");
                 } else {
-                    setErrors({ general: "Incorrect email or password." });
+                    Toast.show({ type: 'error', text1: 'Login Failed', text2: 'Incorrect email or password.' });
                 }
             } else {
-                setErrors({ general: "No user details found. Please sign up first." });
+                Toast.show({ type: 'info', text1: 'No Account', text2: 'Please sign up first.' });
             }
         } catch (error) {
-            console.error("Error accessing local storage", error);
-            setErrors({ general: "An error occurred during login. Please try again." });
+            Toast.show({ type: 'error', text1: 'Error', text2: 'Something went wrong.' });
         }
     };
 
@@ -62,17 +62,17 @@ const login = () => {
             />
 
             <View style={{ padding: 20 }}>
-                <View 
+                <View
                     style={{
                         padding: 20,
                         marginLeft: "auto",
                         marginRight: "auto",
-                        borderRadius: 50, 
+                        borderRadius: 50,
                         height: 120,
                         ...SHADOWS.medium,
                         shadowColor: COLORS.white,
                     }}>
-                    <Image 
+                    <Image
                         source={icons.logoV}
                         style={{
                             width: 70,
@@ -82,7 +82,7 @@ const login = () => {
                         }}
                     />
                 </View>
-                
+
                 <View style={{ marginBottom: 10, marginTop: 10 }}>
                     <Text style={{ textAlign: "center", color: COLORS.primary, fontWeight: "600" }}>
                         Welcome Back!
@@ -91,7 +91,7 @@ const login = () => {
 
                 <View style={{ marginTop: 20 }}>
                     <View style={{ marginBottom: 10 }}>
-                        
+
                         {/* Email Input & Error */}
                         <View style={{ marginBottom: 0 }}>
                             <CustomInput
@@ -105,7 +105,7 @@ const login = () => {
 
                         {/* Password Input & Error */}
                         <View style={{ marginBottom: 0 }}>
-                            <CustomInput 
+                            <CustomInput
                                 value={password}
                                 secureTextEntry={true}
                                 onChangeText={setPassword}
@@ -121,7 +121,7 @@ const login = () => {
                                 {errors.general}
                             </Text>
                         )}
-                        
+
                     </View>
 
                     <View style={{

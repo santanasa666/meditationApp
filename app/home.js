@@ -9,6 +9,7 @@ import PopularMeditation from "../components/PopularMeditation";
 import DailyMeditation from "../components/DailyMeditation";
 import DailyQuote from "../components/DailyQuote";
 import { Stack } from "expo-router";
+import Toast from "react-native-toast-message";
 
 const Home = () => {
     const [userDetails, setUserDetails] = useState(null);
@@ -18,13 +19,18 @@ const Home = () => {
 
     const loadUserDetails = async () => {
         try {
-            const user = await getUserDetails();
-            if (user) {
-                setUserDetails(user);
-            }
-        } catch (error) {
-            console.error("Error loading user details:", error);
+        const user = await getUserDetails();
+        if (user) {
+            setUserDetails(user);
+            Toast.show({
+                type: 'success',
+                text1: `Welcome back, ${user.userName}!`,
+                visibilityTime: 2500,
+            });
         }
+    } catch (error) {
+        console.error("Error loading user details:", error);
+    }
     };
 
     useEffect(() => {
