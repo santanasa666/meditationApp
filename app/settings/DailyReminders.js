@@ -147,8 +147,8 @@ const DailyReminders = () => {
 
                     style={{
                         borderRadius: SIZES.xMedium,
-                        overflow: 'hidden', // Essential to ensure the background follows the radius
-                        elevation: 5,       // Optional: adds shadow on Android
+                        overflow: 'hidden',
+                        elevation: 5,       
                         borderWidth:2,
                         borderColor:colors.gray1,
                     }}

@@ -130,7 +130,7 @@ const login = () => {
                         flexDirection: "row",
                         justifyContent: "center",
                         alignItems: "center",
-                        marginBottom: 30, // Adjusted margin to fit errors cleanly
+                        marginBottom: 30,
                         marginTop: 10
                     }}>
                         <TouchableOpacity>

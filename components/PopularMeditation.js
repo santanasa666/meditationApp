@@ -133,7 +133,7 @@ const styles = (themeColors) => StyleSheet.create({
 
     logoContainer: (selectedMeditation, item) => ({
     width: "100%",
-    height: 150, // Change from "100%" to a fixed number like 150
+    height: 150,
     borderRadius: SIZES.small,
     overflow: 'hidden',
    

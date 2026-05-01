@@ -7,7 +7,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from "../context/ThemeContext";
 import VolumetricButton from "../../assets/button";
 
-// Fixed: Destructured 'data' from props
+
 const Footer = ({ data }) => {
     
     const { colors } = useTheme(); 
@@ -22,7 +22,7 @@ const Footer = ({ data }) => {
         try {
             const favorites = await AsyncStorage.getItem("favorites");
             const favoritesArray = favorites ? JSON.parse(favorites) : [];
-            // Fixed: Added optional chaining to prevent errors if data is null
+
             const isFav = favoritesArray.some((item) => item.id === data?.id);
             setIsFavorite(isFav);
         } catch (error) {
@@ -48,10 +48,10 @@ const Footer = ({ data }) => {
                 updatedFavorites = [...favorites, data];
             }
 
-            // Fixed: Save the updated list back to storage
+            
             await AsyncStorage.setItem("favorites", JSON.stringify(updatedFavorites));
             
-            // Fixed: Update the UI state
+           
             setIsFavorite(!isFavorite);
         } catch (error) {
             console.error("Failed to update favorites", error);
@@ -59,12 +59,12 @@ const Footer = ({ data }) => {
     };
 
     return (
-        // Fixed: Changed 'style.container' to 'styles.container'
+        
         <View style={themedStyles.container}>
             <TouchableOpacity style={themedStyles.likeBtn} onPress={handleFavoriteToggle}>
                 <FontAwesome 
                     name={isFavorite ? "heart" : "heart-o"} 
-                    size={24} // Increased size slightly for better visibility
+                    size={24} 
                     color={isFavorite ? colors.primary : colors.gray2}
                 />
             </TouchableOpacity>

@@ -32,7 +32,7 @@ const SignUp = () => {
         if (!email.trim()) validationErrors.email = "Email is required";
         if (!password.trim()) validationErrors.password = "Password is required";
 
-        // 2. Username Length Criteria
+        // Username Length Criteria
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (email.trim() && !emailRegex.test(email)) {
             validationErrors.email = "Please enter a valid email address";

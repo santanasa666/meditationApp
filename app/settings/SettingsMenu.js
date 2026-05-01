@@ -27,7 +27,7 @@ const SettingsScreen = ({ navigation }) => {
         if (storedDetails) {
           setUserDetails(JSON.parse(storedDetails));
         }
-        // Move the success log INSIDE the async function
+        
         console.log("WE FETCHED THE DETAILS SUCCESSFULLY");
       } catch (error) {
         console.error("Error fetching user details:", error);
@@ -35,7 +35,7 @@ const SettingsScreen = ({ navigation }) => {
     };
 
     fetchUserDetails();
-  }, []); // Empty dependency array is fine here
+  }, []); 
 
   const handleLogout = async () => {
   console.log("We're going to logout");

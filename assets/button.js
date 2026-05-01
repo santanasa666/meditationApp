@@ -3,12 +3,12 @@ import { View, Text, StyleSheet, Pressable, Animated } from 'react-native';
 import { COLORS } from '../constants';
 
 const VolumetricButton = ({ title, onPress }) => {
-  // 1. Create an animated value for the vertical offset
+  
   const animatedValue = useRef(new Animated.Value(0)).current;
 
   const pushButton = () => {
     Animated.spring(animatedValue, {
-      toValue: 1, // Moves the button down
+      toValue: 1, 
       useNativeDriver: true,
       bounciness: 10,
     }).start();
@@ -16,14 +16,14 @@ const VolumetricButton = ({ title, onPress }) => {
 
   const releaseButton = () => {
     Animated.spring(animatedValue, {
-      toValue: 0, // Returns the button to original position
+      toValue: 0,
       useNativeDriver: true,
       bounciness: 10,
     }).start();
   };
 
-  // 2. Map the animated value to a pixel translation
-  // If the 'thickness' is 6, we move the top layer by 6 pixels
+
+  
   const translateY = animatedValue.interpolate({
     inputRange: [0, 1],
     outputRange: [0, 6], 
@@ -36,10 +36,10 @@ const VolumetricButton = ({ title, onPress }) => {
       onPress={onPress}
       style={styles.container}
     >
-      {/* The Bottom Layer (The "Volume") */}
+      
       <View style={styles.bottomLayer} />
 
-      {/* The Top Layer (The Moving Surface) */}
+     
       <Animated.View style={[styles.topLayer, { transform: [{ translateY }] }]}>
         <Text style={styles.text}>{title}</Text>
       </Animated.View>
@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     bottom: 0,
     width: '100%',
-    height: 44, // Slightly shorter than container to allow "push" room
-    backgroundColor: COLORS.primaryDark, // Darker shade
+    height: 44, 
+    backgroundColor: COLORS.primaryDark, 
     borderRadius: 12,
   },
   topLayer: {
     width: '100%',
     height: 44,
-    backgroundColor: COLORS.primary, // Main color
+    backgroundColor: COLORS.primary, 
     borderRadius: 12,
     justifyContent: 'center',
     alignItems: 'center',

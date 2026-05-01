@@ -7,8 +7,8 @@ const CustomInput = ({ iconName, placeholder, value, onChangeText, ...props }) =
   const [isFocused, setIsFocused] = useState(false);
 
   
-  const activeColor = COLORS.primary; // Pink
-  const inactiveColor = COLORS.gray; // Gray
+  const activeColor = COLORS.primary;
+  const inactiveColor = COLORS.gray; 
   const borderColor = isFocused ? activeColor : COLORS.gray2;
 
   return (

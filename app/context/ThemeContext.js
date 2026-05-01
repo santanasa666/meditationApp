@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext } from 'react';
-import { COLORS, DARK_COLORS } from '../../constants'; // Adjust path if needed
+import { COLORS, DARK_COLORS } from '../../constants'; 
 
 const ThemeContext = createContext();
 
@@ -10,7 +10,7 @@ export const ThemeProvider = ({ children }) => {
     setIsDarkMode((prevMode) => !prevMode);
   };
 
-  // Dynamically select the correct palette
+  
   const colors = isDarkMode ? DARK_COLORS : COLORS;
 
   return (
