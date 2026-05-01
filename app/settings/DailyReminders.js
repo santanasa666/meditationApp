@@ -202,7 +202,7 @@ const DailyReminders = () => {
 
 
                 <Text style={themedStyles.reminderHeader}>All Reminders:</Text>
-                {reminders.length > 0 ? reminders.map((rem) => <Reminder key={rem.id} item={rem} />) : <Text style={themedStyles.remindersInfo}>No reminders yet.</Text>}
+                {reminders.length > 0 ? reminders.map((rem) => <Reminder key={rem.id} item={rem}/>) : <Text style={themedStyles.remindersInfo}>No reminders yet.</Text>}
             </ScrollView>
         </SafeAreaView>
 
@@ -214,12 +214,14 @@ const DailyReminders = () => {
 };
 const styles = (themeColors) => StyleSheet.create({
     reminderContainer: {
-        backgroundColor: themeColors.primary,
+        backgroundColor: themeColors.lightWhite,
         borderRadius: SIZES.medium,
+        borderWidth:1.6,
+        borderColor:themeColors.gray2,
         padding: SIZES.small,
         marginVertical: SIZES.small
     },
-    description: { color: themeColors.lightWhite, fontWeight: "bold" },
+    description: { color: themeColors.text, fontWeight: "bold" },
     date: {
         color: themeColors.darkText,
         fontSize: SIZES.small
@@ -282,6 +284,7 @@ const styles = (themeColors) => StyleSheet.create({
     remindersInfo: {
         textAlign: "center",
     },
+    
 });
 
 

@@ -49,8 +49,10 @@ const VolumetricButton = ({ title, onPress }) => {
 
 const styles = StyleSheet.create({
   container: {
-    width: "auto",
+    width: '100%',
     height: 50,
+
+    
   },
   bottomLayer: {
     position: 'absolute',
@@ -69,6 +71,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.2)',
+    
+    
   },
   text: {
     color: 'white',

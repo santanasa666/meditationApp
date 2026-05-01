@@ -5,7 +5,7 @@ import { SIZES, FONT, SHADOWS } from "../constants";
 import useFetch from "../hook/useFetch";
 import { useTheme } from "../app/context/ThemeContext";
 
-const DailyMeditation = () => {
+const DailyMeditation = ( {meditations} ) => {
 
     const { colors } = useTheme();
     const router = useRouter();
@@ -16,12 +16,14 @@ const DailyMeditation = () => {
         query:"meditation",
         numPages:"1",
     });
+    
+    const data = meditations || bestMeditations;
 
     const handleNavigate = (id) => {
         router.push(`/meditation-details/${id}`);
     };
 
-    const data = bestMeditations;
+    
 
     return (
         <View style={themedStyles.container}>

@@ -20,7 +20,7 @@ const COLORS = {
   gray3:"#f3f3f3",
 
   white: "#FFFFFF",
-  lightWhite: "#FAFAFC",
+  lightWhite: "#FAFAFA",
   lightBG:"#ffffff",
 
   quote:"#000",

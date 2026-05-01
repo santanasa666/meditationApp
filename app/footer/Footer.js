@@ -5,6 +5,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import styles from "./Footer.style";
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from "../context/ThemeContext";
+import VolumetricButton from "../../assets/button";
 
 // Fixed: Destructured 'data' from props
 const Footer = ({ data }) => {
@@ -67,12 +68,8 @@ const Footer = ({ data }) => {
                     color={isFavorite ? colors.primary : colors.gray2}
                 />
             </TouchableOpacity>
-
-            <TouchableOpacity style={themedStyles.applyBtn} onPress={handleFavoriteToggle}>
-                <Text style={themedStyles.applyBtnText}>
-                    {isFavorite ? "Remove from favorites" : "Add to favorites"}
-                </Text>
-            </TouchableOpacity>
+            <View style={themedStyles.longBtn}><VolumetricButton title={isFavorite ? "Remove from favorites" : "Add to favorites"} onPress={handleFavoriteToggle} /></View>
+            
         </View>
     );
 }

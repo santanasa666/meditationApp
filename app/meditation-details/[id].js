@@ -20,7 +20,7 @@ const MeditationDetails = () => {
         query: id,
     });
 
-    const meditationItem = data?.[0]; 
+    const meditationItem = data?.find((item) => String(item.id) === String(id));
 
     const [activeTab, setActiveTab] = useState(tabs[0]);
     const [refreshing, setRefreshing] = useState(false);
