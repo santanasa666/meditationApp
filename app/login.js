@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { View, SafeAreaView, Image, Text, TouchableOpacity } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserDetails } from "./utils/localStorage";
 import { Stack, useRouter } from "expo-router";
 import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
@@ -32,22 +32,20 @@ const login = () => {
         console.log('userDetails', userDetails);
 
         try {
-            const detailsDatafromSignup = await AsyncStorage.getItem("userDetails");
-            if (detailsDatafromSignup) {
-                const parsedDetails = JSON.parse(detailsDatafromSignup);
-                
+            
+            const parsedDetails = await getUserDetails();
+            
+            if (parsedDetails) {
                 if (userDetails.email === parsedDetails.email && userDetails.password === parsedDetails.password) {
                     router.push("/home");
                 } else {
-                    // Display incorrect credential error inline
                     setErrors({ general: "Incorrect email or password." });
                 }
             } else {
-                // Display missing account error inline
                 setErrors({ general: "No user details found. Please sign up first." });
             }
         } catch (error) {
-            console.error("Error accessing AsyncStorage", error);
+            console.error("Error accessing local storage", error);
             setErrors({ general: "An error occurred during login. Please try again." });
         }
     };

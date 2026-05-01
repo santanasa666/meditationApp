@@ -7,6 +7,7 @@ import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { useTheme } from "../context/ThemeContext";
 import VolumetricButton from "../../assets/button";
 
+import { getData, storeData } from "../utils/localStorage";
 
 const Footer = ({ data }) => {
     
@@ -20,9 +21,7 @@ const Footer = ({ data }) => {
     
     const checkIfFavorite = async () => {
         try {
-            const favorites = await AsyncStorage.getItem("favorites");
-            const favoritesArray = favorites ? JSON.parse(favorites) : [];
-
+            const favoritesArray = await getData("favorites") || [];
             const isFav = favoritesArray.some((item) => item.id === data?.id);
             setIsFavorite(isFav);
         } catch (error) {
@@ -38,8 +37,7 @@ const Footer = ({ data }) => {
 
     const handleFavoriteToggle = async () => {
         try {
-            let favorites = await AsyncStorage.getItem("favorites");
-            favorites = favorites ? JSON.parse(favorites) : [];
+            let favorites = await getData("favorites") || [];
 
             let updatedFavorites;
             if (isFavorite) {
@@ -49,9 +47,7 @@ const Footer = ({ data }) => {
             }
 
             
-            await AsyncStorage.setItem("favorites", JSON.stringify(updatedFavorites));
-            
-           
+            await storeData("favorites", updatedFavorites);
             setIsFavorite(!isFavorite);
         } catch (error) {
             console.error("Failed to update favorites", error);

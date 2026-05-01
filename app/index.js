@@ -1,4 +1,4 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserDetails } from "./utils/localStorage";
 import { Redirect } from "expo-router";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, View } from "react-native-web";
@@ -9,7 +9,7 @@ export default function Index() {
   useEffect(() => {
         const checkLoginState = async () => {
           try {
-            const user = await AsyncStorage.getItem("userDetails");
+            const user = await getUserDetails();
             if (user) {
               setIsLoggedIn(true);
             }
@@ -21,6 +21,7 @@ export default function Index() {
     
         checkLoginState();
       }, []);
+
       if (isLoading) {
             return (
               <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>

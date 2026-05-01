@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, SafeAreaView, ScrollView, TouchableOpacity, Platform, Alert, TextInput, StyleSheet } from "react-native";
 import { Stack } from "expo-router";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserDetails,getData, storeData } from "../utils/localStorage";
 import { Calendar } from 'react-native-calendars';
 import * as Notifications from "expo-notifications";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -40,14 +40,13 @@ const DailyReminders = () => {
 
     const loadUserDetails = async () => {
 
-        const user = await AsyncStorage.getItem("userDetails");
-        setUserDetails(user ? JSON.parse(user) : {});
+        const user = await getUserDetails();
+        setUserDetails(user || {});
     };
 
     const loadReminders = async () => {
 
-        const storedReminders = await AsyncStorage.getItem("reminders");
-        const allReminders = storedReminders ? JSON.parse(storedReminders) : [];
+        const allReminders = await getData("reminders") || [];
         const futureReminders = allReminders.filter((reminder) => new Date(reminder.triggerDate) > new Date());
         setReminders(futureReminders);
 
@@ -85,7 +84,7 @@ const DailyReminders = () => {
 
         try {
             const updateReminders = [...reminders, newReminder];
-            await AsyncStorage.setItem("reminders", JSON.stringify(updateReminders));
+            await storeData("reminders", updateReminders);
             setReminders(updateReminders);
             await scheduleNotification(newReminder);
             alert("Reminder added successfully!");
@@ -112,7 +111,7 @@ const DailyReminders = () => {
 
     const deleteReminder = async (id) => {
         const updateReminders = reminders.filter((reminder) => reminder.id !== id);
-        await AsyncStorage.setItem("reminders", JSON.stringify(updateReminders));
+        await storeData("reminders", updateReminders);
         setReminders(updateReminders);
     };
     const Reminder = ({ item }) => (

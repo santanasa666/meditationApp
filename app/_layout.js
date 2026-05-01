@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Stack } from "expo-router";
 import { useFonts } from "expo-font";
 import { ActivityIndicator, View } from "react-native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserDetails } from "./utils/localStorage";
 import { ThemeProvider } from "./context/ThemeContext";
 
 export const unstable_settings = {
@@ -22,7 +22,7 @@ export default function RootLayout() {
     useEffect(() => {
         const checkLoginState = async () => {
             try {
-                const user = await AsyncStorage.getItem("userDetails");
+                const user = await getUserDetails();
                 if (user) {
                     setIsLoggedIn(true);
                 }
@@ -35,7 +35,6 @@ export default function RootLayout() {
         checkLoginState();
     }, []);
     
-    
     if (isLoading || !fontsLoaded) {
         return (
             <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
@@ -44,7 +43,7 @@ export default function RootLayout() {
         );
     }
 
-    // Main layout tree
+   
     return (
         <ThemeProvider>
             <Stack

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { COLORS, SIZES } from "../constants";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getUserDetails } from "./utils/localStorage";
 import { SafeAreaView, ScrollView, View } from "react-native";
 import { useTheme } from "./context/ThemeContext";
 import ScreenHeaderBtn from "../components/ScreenHeaderBtn";
@@ -18,9 +18,9 @@ const Home = () => {
 
     const loadUserDetails = async () => {
         try {
-            const user = await AsyncStorage.getItem("userDetails");
+            const user = await getUserDetails();
             if (user) {
-                setUserDetails(JSON.parse(user));
+                setUserDetails(user);
             }
         } catch (error) {
             console.error("Error loading user details:", error);

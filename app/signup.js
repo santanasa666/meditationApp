@@ -15,6 +15,8 @@ import { COLORS, icons, SHADOWS } from "../constants";
 import VolumetricButton from "../assets/button";
 import CustomInput from "../components/dynamicInput";
 
+import { saveUserDetails } from "./utils/localStorage";
+
 const SignUp = () => {
     const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -51,7 +53,7 @@ const SignUp = () => {
 
         try {
             // Saving user details
-            await AsyncStorage.setItem("userDetails", JSON.stringify(userDetails));
+            await saveUserDetails(userDetails);
             console.log("User registered successfully:", userDetails);
 
             // Navigate to login
